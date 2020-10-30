@@ -3,50 +3,6 @@ const initialState = {
   buffer: '0'
 };
 
-/*const evaluate = (string) => {
-  const stringToArithmeticArray =(str) => {
-    let index = 0;
-    const splitArray = str.split('').reduce((arr, v, i) => {
-      if (isNaN(parseFloat(v)) && v !== '.') {
-        arr.push(str.slice(index, i));
-        arr.push(v);
-        index = i + 1;
-      }
-      return arr;
-    }, []);
-    splitArray.push(str.slice(index));
-    splitArray.filter(curr => curr !== '');
-    return splitArray;
-  }
-
-  const arithmetic = (a, b, o) => {
-    const arithmeticObject  = {
-      '*': a * b,
-      '/': a / b,
-      '+': a + b,
-      '-': a - b
-    };
-    return arithmeticObject[o];
-  }
-
-  const simplify = (arithmeticArray) => {
-    // for (let i = 0; i < arithmeticArray.length; i++) {
-    //   if (isNaN(parseFloat()))
-    // }
-  }
-
-  const calculate = (arithmeticArray) => {
-    let operator = ''
-    return arithmeticArray.reduce((prev, curr, arr) => {
-      if (isNaN(parseFloat(curr))) {
-        operator = curr;
-      }
-      return isNaN(parseFloat(curr)) ? prev : arithmetic(prev, curr, operator);
-    });
-  }
-  return stringToArithmeticArray(string);
-}*/
-
 const reducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case 'SET_VALUE_NUMBER':
@@ -182,18 +138,11 @@ const reducer = (state = initialState, {type, payload}) => {
     if (string.toString().includes('--')) {
       string = string.replace(/--/i, '+');
     }
-    try {
-      const solution = eval(string);
-      return {
-        display: `${state.display}=${Number(solution.toFixed(4))}`,
-        buffer: Number(solution.toFixed(4))
-      };
-    } catch (e) {
-      return {
-        buffer: e.name,
-        display: ''
-      }
-    }
+    const solution = eval(string);
+    return {
+      display: `${state.display}=${Number(solution.toFixed(4))}`,
+      buffer: Number(solution.toFixed(4))
+    };
     case 'SET_OPERATOR_CLEAR':
       return {
         buffer: '0',
